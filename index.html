@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title></title>
+    <script>
+      //---友盟 集成sdk----
+      ;(function(w, d, s, q, i) {
+        w[q] = w[q] || [];
+        var f = d.getElementsByTagName(s)[0],j = d.createElement(s);
+        j.async = true;
+        j.id = 'beacon-aplus';
+        j.src = 'https://d.alicdn.com/alilog/mlog/aplus/' + i + '.js';
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'aplus_queue', '203467608');
+      var aplusAppKey='';
+      if(location.host.indexOf('qf.bangongyi.com') != -1 ){
+        //正式环境key
+        aplusAppKey='61737a44e0f9bb492b3af26f';
+      }else{
+        //测试环境key
+        aplusAppKey='617381afe0f9bb492b3b019a'
+      }
+      //集成应用的appKey
+      aplus_queue.push({
+        action: 'aplus.setMetaInfo',
+        arguments: ['appKey', aplusAppKey]
+      });
+
+      //-----------
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>
