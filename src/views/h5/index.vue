@@ -88,7 +88,7 @@ export default {
       }
     },
     handleRecord(item) {
-      
+        this.$router.push({ name: 'H5FormRecord', query: { id: item.id } })
     },
     handleOk() {
       const date = moment(this.currentDate).format('YYYY-MM')

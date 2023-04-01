@@ -17,7 +17,8 @@ html, body, #app{
       height: 100%;
 }
 #app {
-  overflow-y: auto;
+  /* 必须注释不能放全局 */
+  /* overflow-y: auto; */
 }
 #app::-webkit-scrollbar {
   display: none;
