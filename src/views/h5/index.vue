@@ -1,6 +1,14 @@
 <template>
   <div class="data-home">
-    <CardItem class="card-container" v-for="item in dataCardList" :key="item.id" :item="item" @onRecord="handleRecord" @onAddData="handleAddData" />
+    <template v-if="dataCardList.length">
+      <CardItem class="card-container" v-for="item in dataCardList" :key="item.id" :item="item" @onRecord="handleRecord" @onAddData="handleAddData" />
+    </template>
+    <div class="empty" v-else>
+      <div class="container">
+        <img :src="emptyIcon" alt="">
+        <div>暂时没有需要填报的采集表</div>
+      </div>
+    </div>
 
     <van-popup v-model="dateVisible" position="bottom">
       <van-datetime-picker
@@ -15,6 +23,7 @@
 
 <script>
 import CardItem from './modules/cardItem.vue'
+import emptyIcon from './icons/empty.png'
 import './modules/rem.js'
 import { apiGetCollectList } from '@/api/h5'
 import moment from 'moment'
@@ -24,6 +33,7 @@ export default {
   },
   data() {
     return {
+      emptyIcon,
       dataCardList:[
         {                 
           "id": "2",                 
@@ -105,6 +115,18 @@ export default {
     margin-bottom: 0.08rem;
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+  .empty {
+    margin-top: 0.4rem;
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      width: 1.44rem;
     }
   }
 }
