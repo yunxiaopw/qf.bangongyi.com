@@ -1,9 +1,10 @@
 <template>
   <div class="h5-data-form">
-    <HeaderDesc />
+    <HeaderDesc :headerInfo="baseParams.info" />
     <div class="line-8"></div>
     <FormData ref="formData" />
     <div class="line-16"></div>
+    <div class="wrap-div"></div>
     <div class="footer">
       <van-checkbox v-model="checked">复选框</van-checkbox>
       <div class="btn-group">
@@ -17,7 +18,9 @@
 <script>
 import FormData from './modules/formData.vue'
 import HeaderDesc from './modules/headerDesc.vue'
+import { apiGetCollectListInfo, apiAddFillData } from '@/api/h5'
 import './modules/rem.js'
+
 export default {
   components: {
     FormData,
@@ -25,16 +28,60 @@ export default {
   },
   data() {
     return {
-      checked: false
+      checked: false,
+      baseParams: {},
+      dataType: '',
+      data_id: ''
     }
   },
+  created() {
+    const { id } = this.$route.query;
+    this.data_id = id
+  },
+  mounted() {
+    this.getBaseInfo()
+  },
   methods: {
+    async getBaseInfo() {
+      const res = await apiGetCollectListInfo({data_id: this.data_id})
+      if(res.errno === 0) {
+        this.baseParams = res.data
+        this.$refs.formData.formDataList = res.data.item_list
+      }
+    },
     handleCancel() {
       this.$router.go(-1)
     },
-    handleSave() {
-      console.log('formData', this.$refs.formData)
-      this.$refs.formData.handleSubmit()
+    async handleSave() {
+      const formDatalist =  this.$refs.formData.formDataList
+      let flag = false
+      const params = {data_list: []}
+      params.data_id = this.data_id;
+      // TODO 这里需要通过选人组件获得对应的员工id
+      params.staff_id = '5576552'
+      formDatalist.forEach(item => {
+        if(item.is_required === '1' && !item.value) {
+          flag = true
+          params.data_list
+        }
+        params.data_list.push({
+          item_id: item.id,
+          value: item.value
+        })
+      })
+      if(flag) {
+        this.$message.error('* 号项是必填项！')
+        return
+      }
+
+      const res = await apiAddFillData(params)
+
+      if(res.errno === 0 && this.checked) {
+        formDatalist.forEach(item => {
+          item.value = ''
+        })
+        this.$refs.formData.formDataList = formDatalist
+      }
     }
   }
 }
@@ -42,6 +89,12 @@ export default {
 
 <style lang="less" scoped>
 .h5-data-form {
+  .wrap-div {
+    width: 100%;
+    height: 0.72rem;
+    background: #fff;
+  }
+
   /deep/ .van-checkbox__icon--checked .van-icon {
     background-color: #1AAC88;
     border-color: #1AAC88;
@@ -55,11 +108,16 @@ export default {
     background: #f5f5f5;
   }
   .footer {
+    background: #fff;
+    width: 100%;
     display: flex;
     align-items: center;
     height: 0.72rem;
     justify-content: space-between;
     padding: 0 0.16rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
   }
   .btn {
     width: 1.09rem;

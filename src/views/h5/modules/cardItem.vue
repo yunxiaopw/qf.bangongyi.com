@@ -2,7 +2,7 @@
   <div class="card-item">
     <div class="content">
       <div class="left">
-        <div class="title">{{ item.name }}123123123123123123123123123123123</div>
+        <div class="title">{{ item.name }}</div>
         <div class="desc">
           <span class="key">填报类型：</span>
           <span class="value">{{ item.type === 1 ? '限填一次' : '按月填写' }}</span>

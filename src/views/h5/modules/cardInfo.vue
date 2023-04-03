@@ -1,17 +1,17 @@
 <template>
-  <div class="card-info-item">
+  <div class="card-info-item" @click="handleToEdit">
     <div class="left">
       <div class="item">
         <span class="key">姓名：</span>
-        <span class="value">30人</span>
+        <span class="value">{{item.item_name}}</span>
       </div>
       <div class="item">
         <span class="key">账号：</span>
-        <span class="value">28份</span>
+        <span class="value">{{item.staff_id}}</span>
       </div>
       <div class="item">
         <span class="key">奖金类型：</span>
-        <span class="value">绩效奖金</span>
+        <span class="value">{{item.value}}</span>
       </div>
     </div>
     <div class="right">
@@ -36,17 +36,14 @@ export default {
     }
   },
   methods: {
-    handleClick(type, item) {
-      switch (type) {
-        case 'record':
-          this.$emit('onRecord', item)
-          break;
-        case 'addData':
-          this.$emit('addData', item)
-          break;
-        default:
-          break;
-      }
+    handleToEdit() {
+      this.$router.push({
+        name: 'H5EditInfo',
+        query: {
+          id: this.item.item_id,
+          group_no: this.item.group_no
+        }
+      })
     }
   }
 }

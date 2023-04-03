@@ -27,6 +27,29 @@ import emptyIcon from './icons/empty.png'
 import './modules/rem.js'
 import { apiGetCollectList } from '@/api/h5'
 import moment from 'moment'
+
+const mockData = {
+        "errno": 0,
+        "errmsg": "success",
+        "data": [{
+                "id": "2",
+                "name": "采集表1",
+                "type": "2",
+                "source_date": null,
+                "created_at": "2023-03-07 16:48:46",
+                "is_lock": "0",
+                "is_fill": 1
+        }, {
+                "id": "3",
+                "name": "采集表2",
+                "type": "2",
+                "source_date": null,
+                "created_at": "2023-03-07 16:48:46",
+                "is_lock": "0",
+                "is_fill": 0
+        }]
+}
+
 export default {
   components: {
     CardItem
@@ -34,46 +57,23 @@ export default {
   data() {
     return {
       emptyIcon,
-      dataCardList:[
-        {                 
-          "id": "2",                 
-          "name": "采集表1",                 
-          "type": "2",                 
-          "source_date": null,               
-          "created_at": "2023-03-07 16:48:46",             
-          "is_lock": "0",               
-          "is_fill": 1      
-        }, 
-        {                
-        "id": "3",                 
-          "name": "采集表2",                
-          "type": "2",               
-          "source_date": "2023-03",         
-          "created_at": "2023-03-07 16:48:46",          
-          "is_lock": "0",             
-          "is_fill": 0       
-        },
-        {                
-        "id": "4",                 
-          "name": "采集表3",                
-          "type": "1",               
-          "source_date": null,         
-          "created_at": "2023-03-07 16:48:46",          
-          "is_lock": "1",             
-          "is_fill": 1       
-        }
-      ],
+      dataCardList:[],
       dateVisible: false,
       currentDate: new Date(),
       currentData: {}
     }
   },
+  mounted() {
+    this.getCollectList()
+  },  
   methods: {
     async getCollectList() {
-      const res = await apiGetCollectList()
-      if(res.errno === 0) {
-        // this.dataCardList = res.data
-      }
+      // const res = await apiGetCollectList()
+      // if(res.errno === 0) {
+      //   this.dataCardList = res.data
+      // }
+
+      this.dataCardList = mockData.data
     },
     handleAddData(item) {
       this.currentData = item

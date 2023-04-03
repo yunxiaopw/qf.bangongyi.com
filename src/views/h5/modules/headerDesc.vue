@@ -1,20 +1,20 @@
 <template>
-  <div class="header-wrap">
-    <div class="title">采集表的名称是这个最长十五个字</div>
+  <div class="header-wrap" v-if="headerInfo">
+    <div class="title">{{ headerInfo.name }}</div>
     <template v-if="show">
-      <div class="desc">此处为填报说明，最多在后台设置输入200字符此处为填报说明，最多在后台设置输入200字符此处为填报说明，最多在后台设置输入200字符此处为填报说明，最多在后台设置输入200</div>
+      <div class="desc" v-if="headerInfo.describe">{{ headerInfo.describe }}</div>
       <div class="container">
         <div class="item">
           <span class="key">填报类型：</span>
-          <span class="value">按月填写</span>
+          <span class="value">{{ headerInfo.filling_type === 1 ? '限填一次' : '按月填写' }}</span>
         </div>
-        <div class="item">
+        <div class="item" v-if="headerInfo.tag_list">
           <span class="key">采集范围：</span>
-          <span class="value">xx部门、cc标签、dd员工姓名</span>
+          <span class="value">{{ headerInfo.tag_list }}</span>
         </div>
-        <div class="item">
+        <div class="item" v-if="headerInfo.total">
           <span class="key">采集人数：</span>
-          <span class="value">108 人</span>
+          <span class="value">{{ headerInfo.total }} 人</span>
         </div>
       </div>
     </template>
@@ -35,6 +35,12 @@
 import downCircle from '../icons/down-circle.svg'
 import upCircle from '../icons/up-circle.svg'
 export default {
+  props: {
+    headerInfo: {
+      type: Object,
+      default: () => {}
+    }
+  },
   data() {
     return {
       downCircle,

@@ -4,70 +4,80 @@ import request from "@/utils/request";
 export function apiGetCollectList(params) {
   return request({
     url: "/newsalary/openapi/data-fill/get-collect-list",
-    method: "POST",
+    method: "GET",
     params
   });
 }
 
+// 填报数据基本信息
+export function apiGetCollectListInfo(params) {
+  return request({
+    url: '/newsalary/openapi/data-fill/collect-fill-web',
+    method: "GET",
+    params
+  })
+}
+
 // 获取填报数据回显数据
-export function apiGetFillData(params) {
+export function apiGetRecordFillData(data) {
   return request({
     url: "/newsalary/openapi/data-fill/fill-record-list",
     method: "POST",
-    params
+    data
   });
 }
 
 // 添加数据
-export function apiAddFillData(params) {
+export function apiAddFillData(data) {
   return request({
     url: "/newsalary/openapi/data-fill/data-fill-add",
     method: "POST",
-    params
+    data
   });
 }
 
 // 获取用户基本信息
-export function apiGetUserInfo(params) {
+export function apiGetUserInfo(data) {
   return request({
     url: "/newsalary/openapi/data-fill/get-userinfo",
     method: "POST",
-    params
+    data
   });
 }
 
 // 查看记录
-export function apiGetRecordList(params) {
+export function apiGetRecordList(data) {
   return request({
     url: "/newsalary/openapi/data-fill/fill-record",
     method: "POST",
-    params
+    data
   });
 }
 
-// 获取数据详情
-export function apiGetFillDetail(params) {
+// 获取单条数据详情
+export function apiGetFillDetail(data) {
   return request({
     url: "/newsalary/openapi/data-fill/fill-record-detail",
     method: "POST",
-    params
+    data
   });
 }
 
 // 数据删除
-export function apiDeleteFillData(params) {
+export function apiDeleteFillData(data) {
   return request({
     url: "/newsalary/openapi/data-fill/fill-detail-del",
     method: "POST",
-    params
+    data
   });
 }
 
 // 数据编辑
-export function apiEditFillData(params) {
+export function apiEditFillData(data) {
   return request({
     url: "/newsalary/openapi/data-fill/data-fill-edit",
     method: "POST",
-    params
+    data
   });
 }
+

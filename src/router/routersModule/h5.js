@@ -18,5 +18,10 @@ export const h5Routers = [
     path: "/h5-record-info",
     name: "H5RecordInfo",
     component: () => import("@/views/h5/recordInfo")
+  },
+  {
+    path: "/h5-edit-form",
+    name: "H5EditInfo",
+    component: () => import("@/views/h5/editDataForm")
   }
 ]

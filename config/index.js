@@ -10,7 +10,7 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: [{
-      context: ['/hrm/api', '/hrm/openapi', '/public','/newsalary/api/'],
+      context: ['/hrm/api', '/hrm/openapi', '/public','/newsalary/api/', '/newsalary/openapi'],
       target: "http://a.bangongyi.sun:8080", //此处可以换成自己需要的地址
       changeOrigin: true,
       // pathRewrite: {

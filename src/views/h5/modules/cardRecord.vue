@@ -1,24 +1,24 @@
 <template>
-  <div class="card-record-item">
+  <div class="card-record-item" @click="handleToDetail">
     <div class="left">
       <div class="title">
         <span>薪资所属期：</span>
-        <span>2023年2月</span>
-        <span class="tip">
+        <span>{{item.source_date}}</span>
+        <span class="tip" v-if="item.is_lock === '1'">
           <span>本期数据已锁定</span>
         </span>
       </div>
       <div class="item">
         <span class="key">填报人数：</span>
-        <span class="value">30人</span>
+        <span class="value">{{ item.staff_count }}人</span>
       </div>
       <div class="item">
         <span class="key">填写结果：</span>
-        <span class="value">28份</span>
+        <span class="value">{{ item.group_count }}份</span>
       </div>
       <div class="item">
         <span class="key">最后更新时间：</span>
-        <span class="value">2023-02-14 15:20:33</span>
+        <span class="value">{{ item.updated_at }}</span>
       </div>
     </div>
     <div class="right">
@@ -43,17 +43,14 @@ export default {
     }
   },
   methods: {
-    handleClick(type, item) {
-      switch (type) {
-        case 'record':
-          this.$emit('onRecord', item)
-          break;
-        case 'addData':
-          this.$emit('addData', item)
-          break;
-        default:
-          break;
-      }
+    handleToDetail() {
+      this.$router.push({
+        name: 'H5RecordInfo',
+        query: {
+          id: this.item.id,
+          source_date: this.item.source_date
+        }
+      })
     }
   }
 }

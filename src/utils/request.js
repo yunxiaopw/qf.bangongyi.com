@@ -11,6 +11,7 @@ const service = axios.create({
   // baseURL: "http://vv.bangongyi.com",
   // baseURL: "https://qy.bangongyi.com",
   // 超时 
+  baseURL: '',
   timeout: 10000
 })
 
